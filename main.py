@@ -662,7 +662,7 @@ class AddFilmWidget(QMainWindow):
         else:
             self.pushButton.clicked.connect(self.get_adding_verdict)
 
-        self.params = {j: i for i, j in self.con.cursor().execute("SELECT * FROM genres WHERE title IS NOT NULL").fetchall()}
+        self.params = {j: i for i, j in self.con.cursor().execute("SELECT * FROM genres").fetchall()}
 
         for i in self.params.keys():
             self.comboBox.addItem(i)
@@ -726,6 +726,7 @@ class AddGenreWidget(QMainWindow):
         f = io.StringIO(add_genre_widget_design)
         uic.loadUi(f, self)
         self.parent = parent
+        self.setWindowTitle('Добавление записи')
 
         self.con = sqlite3.connect('films_db.sqlite')
 
@@ -784,3 +785,4 @@ if __name__ == '__main__':
     ex.show()
     sys.excepthook = except_hook
     sys.exit(app.exec())
+
